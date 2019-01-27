@@ -10,6 +10,6 @@ setup(name="pandas_ods_reader",
       author="iuvbio",
       author_email="",
       license="MIT",
-      packages=find_packages(["pandas_ods_reader"]),
+      packages=find_packages(),
       zip_safe=False,
       install_requires=["ezodf", "pandas"])
