@@ -12,12 +12,12 @@ def ods_info(doc):
             sheet.nrows(), sheet.ncols()))
 
 
-def load_ods(doc, sheet, header=True, columns=None):
+def load_ods(doc, sheet, headers=True, columns=None):
     # convert the sheet to a pandas.DataFrame
     if isinstance(sheet, int):
         sheet = doc.sheets[sheet - 1]
     elif isinstance(sheet, str):
-        sheets = [sheet for sheet in doc.sheets]
+        sheets = [sheet.name for sheet in doc.sheets]
         if sheet not in sheets:
             raise ValueError("There is no sheet named {}".format(sheet))
         sheet_idx = sheets.index(sheet)
@@ -26,14 +26,14 @@ def load_ods(doc, sheet, header=True, columns=None):
     col_index = {}
     for i, row in enumerate(sheet.rows()):
         # row is a list of cells
-        if header and i == 0:
+        if headers and i == 0:
             # columns as lists in a dictionary
             df_dict = {cell.value: [] for cell in row if cell.value}
             # create index for the column headers
             col_index = {
                 j: cell.value for j, cell in enumerate(row) if cell.value}
             continue
-        elif not header and i == 0:
+        elif not headers and i == 0:
             columns = columns if columns else (
                 ["Column_%s" % j for j in range(len(row))])
             # columns as lists in a dictionary
@@ -71,7 +71,7 @@ def sanitize_df(df):
     return df
 
 
-def read_ods(file_or_path, sheet, header=True, columns=None):
+def read_ods(file_or_path, sheet, headers=True, columns=None):
     """
     This function reads in the provided ods file and converts it to a
     dictionary. The dictionary is converted to a DataFrame. Empty rows and
@@ -90,5 +90,5 @@ def read_ods(file_or_path, sheet, header=True, columns=None):
     the ODS file as a pandas DataFrame
     """
     doc = ezodf.opendoc(file_or_path)
-    df = load_ods(doc, sheet, header, columns)
+    df = load_ods(doc, sheet, headers, columns)
     return sanitize_df(df)
