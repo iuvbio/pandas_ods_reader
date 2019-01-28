@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 
-VERSION = "0.0.2"
+VERSION = "0.0.3"
 
 setup(name="pandas_ods_reader",
       version=VERSION,
@@ -9,7 +9,7 @@ setup(name="pandas_ods_reader",
       classifiers=[
         'Development Status :: 3 - Alpha',
         'License :: OSI Approved :: MIT License',
-        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
         'Topic :: Utilities',
       ],
       keywords='data io pandas ods',
@@ -19,5 +19,5 @@ setup(name="pandas_ods_reader",
       license="MIT",
       packages=find_packages(),
       zip_safe=False,
-      install_requires=["ezodf", "pandas"]
+      install_requires=["ezodf", "pandas", "lxml"]
       )

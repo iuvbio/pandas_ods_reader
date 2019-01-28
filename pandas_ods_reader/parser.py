@@ -2,14 +2,7 @@
 import ezodf
 import pandas as pd
 
-
-def ods_info(doc):
-    print("Spreadsheet contains %d sheet(s)." % len(doc.sheets))
-    for sheet in doc.sheets:
-        print("-"*40)
-        print("   Sheet name : '%s'" % sheet.name)
-        print("Size of Sheet : (rows=%d, cols=%d)" % (
-            sheet.nrows(), sheet.ncols()))
+from .tools import sanitize_df
 
 
 def load_ods(doc, sheet, headers=True, columns=None):
@@ -49,25 +42,6 @@ def load_ods(doc, sheet, headers=True, columns=None):
                 continue
     # and convert to a DataFrame
     df = pd.DataFrame(df_dict)
-    return df
-
-
-def sanitize_df(df):
-    # Delete empty rows
-    rows = len(df) - 1
-    for i in range(rows):
-        row = df.iloc[-1]
-        if row.isnull().all():
-            df = df.iloc[:-2]
-        else:
-            break
-    # Delete empty columns
-    cols = []
-    for column in df:
-        if not df[column].isnull().all():
-            cols.append(column)
-    df = df[cols]
-    len(df.columns)
     return df
 
 

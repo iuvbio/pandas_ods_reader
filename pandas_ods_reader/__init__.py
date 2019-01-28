@@ -1,1 +1,1 @@
-from .read_ods import read_ods
+from .parser import read_ods
