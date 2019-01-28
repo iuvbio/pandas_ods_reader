@@ -1,7 +1,7 @@
 import os
 import sys
 
-from pandas_ods_reader.read_ods import read_ods
+from pandas_ods_reader import read_ods
 
 
 root = os.path.dirname(os.path.abspath(__file__))

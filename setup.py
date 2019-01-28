@@ -9,7 +9,7 @@ setup(name="pandas_ods_reader",
       classifiers=[
         'Development Status :: 3 - Alpha',
         'License :: OSI Approved :: MIT License',
-        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.6',
         'Topic :: Utilities',
       ],
       keywords='data io pandas ods',
