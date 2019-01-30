@@ -18,7 +18,7 @@ def sanitize_df(df):
     for i in range(rows):
         row = df.iloc[-1]
         if row.isnull().all():
-            df = df.iloc[:-2]
+            df = df.iloc[:-1]  # TODO: verifiy that the range is not inclusive
         else:
             break
     # Delete empty columns
@@ -27,5 +27,5 @@ def sanitize_df(df):
         if not df[column].isnull().all():
             cols.append(column)
     df = df[cols]
-    len(df.columns)
+    # len(df.columns)
     return df
