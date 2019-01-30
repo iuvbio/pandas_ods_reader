@@ -1,11 +1,16 @@
 from setuptools import setup, find_packages
 
 
-VERSION = "0.0.3"
+VERSION = "0.0.4"
+
+with open("README.md", "r") as fh:
+    long_description = fh.read()
 
 setup(name="pandas_ods_reader",
       version=VERSION,
       description="Read in an ODS file and return it as a pandas.DataFrame",
+      long_description=long_description,
+      long_description_content_type="text/markdown",
       classifiers=[
         'Development Status :: 3 - Alpha',
         'License :: OSI Approved :: MIT License',
