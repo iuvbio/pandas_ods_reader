@@ -12,6 +12,7 @@ Dependencies
 ---
 
 - `ezodf`
+- `lxml`
 - `pandas`
 
 Installation
