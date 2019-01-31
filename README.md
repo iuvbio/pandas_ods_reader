@@ -37,7 +37,7 @@ sheet_name = "sheet1"
 df = read_ods(path, sheet_name)
 
 # load a file that does not contain a header row
-# if no columns are provided they will be numbered
+# if no columns are provided, they will be numbered
 df = read_ods(path, 1, headers=False)
 
 # load a file and provide custom column names
