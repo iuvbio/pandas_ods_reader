@@ -19,21 +19,22 @@ def load_ods(doc, sheet, headers=True, columns=None):
     col_index = {}
     for i, row in enumerate(sheet.rows()):
         # row is a list of cells
-        if headers and i == 0:
+        if headers and i == 0 and not columns:
             # columns as lists in a dictionary
             df_dict = {cell.value: [] for cell in row if cell.value}
             # create index for the column headers
             col_index = {
                 j: cell.value for j, cell in enumerate(row) if cell.value}
             continue
-        elif not headers and i == 0:
+        elif i == 0:
             columns = columns if columns else (
                 ["column_%s" % j for j in range(len(row))])
             # columns as lists in a dictionary
             df_dict = {column: [] for column in columns}
             # create index for the column headers
             col_index = {j: column for j, column in enumerate(columns)}
-            continue
+            if headers:
+                continue
         for j, cell in enumerate(row):
             if j < len(col_index):
                 # use header instead of column index
