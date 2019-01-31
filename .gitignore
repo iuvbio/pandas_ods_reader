@@ -12,3 +12,9 @@
 
 # PyCharm idea folder.
 /.idea/
+
+# PyTest folder
+/.pytest_cache/
+
+# Dev .eggs folder
+/.eggs/

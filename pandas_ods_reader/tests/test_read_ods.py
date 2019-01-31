@@ -6,33 +6,32 @@ from pandas_ods_reader import read_ods
 
 
 root = os.path.dirname(os.path.abspath(__file__))
+rsc = os.path.join(root, "rsc")
 
 
-class OdsReaderTest(object):
-    def test_header_file_with_int():
+class TestOdsReader(object):
+    def test_header_file_with_int(self):
         example = "example_headers.ods"
-        path = os.path.join(root, example)
-        # print("Test sheet by index")
+        path = os.path.join(rsc, example)
         df = read_ods(path, 1)
         assert isinstance(df, pd.DataFrame)
 
-    def test_header_file_with_str():
+    def test_header_file_with_str(self):
         example = "example_headers.ods"
-        path = os.path.join(root, example)
+        path = os.path.join(rsc, example)
         df = read_ods(path, "Sheet1")
-        print(df)
         assert isinstance(df, pd.DataFrame)
 
-    def test_no_header_file():
+    def test_no_header_file_no_cols(self):
         example = "example_no_headers.ods"
-        path = os.path.join(root, example)
-        print("Test sheet by index and default columns")
+        path = os.path.join(rsc, example)
         df = read_ods(path, 1, headers=False)
-        print(df)
-        print("Test sheet by name and default columns")
-        df = read_ods(path, "Sheet1", headers=False)
-        print(df)
-        print("Test sheet by index and specific columns")
+        assert list(df.columns) == [
+            "column_%s" % i for i in range(len(df.columns))]
+
+    def test_no_header_file_with_cols(self):
+        example = "example_headers.ods"
+        path = os.path.join(rsc, example)
         columns = ["A", "B", "C", "D", "E"]
         df = read_ods(path, 1, headers=False, columns=columns)
-        print(df)
+        assert list(df.columns) == columns

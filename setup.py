@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 
-VERSION = "0.0.4"
+VERSION = "0.0.5"
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
@@ -24,5 +24,7 @@ setup(name="pandas_ods_reader",
       license="MIT",
       packages=find_packages(),
       zip_safe=False,
-      install_requires=["ezodf", "pandas", "lxml"]
+      install_requires=["ezodf", "pandas", "lxml"],
+      setup_requires=["pytest-runner"],
+      tests_require=["pytest"]
       )
