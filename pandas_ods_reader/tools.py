@@ -14,11 +14,9 @@ def ods_info(doc):
 def sanitize_df(df):
     """Drops empty rows and columns from the DataFrame and returns it"""
     # Delete empty rows
-    rows = len(df) - 1
-    for i in range(rows):
-        row = df.iloc[-1]
-        if row.isnull().all():
-            df = df.iloc[:-1]  # TODO: verifiy that the range is not inclusive
+    for i in df.index.tolist()[-1::-1]:
+        if df.iloc[i].isna().all():
+            df.drop(i, inplace=True)
         else:
             break
     # Delete empty columns
@@ -27,5 +25,4 @@ def sanitize_df(df):
         if not df[column].isnull().all():
             cols.append(column)
     df = df[cols]
-    # len(df.columns)
     return df
