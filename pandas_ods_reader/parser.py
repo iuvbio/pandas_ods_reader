@@ -28,7 +28,7 @@ def load_ods(doc, sheet, headers=True, columns=None):
             continue
         elif not headers and i == 0:
             columns = columns if columns else (
-                ["Column_%s" % j for j in range(len(row))])
+                ["column_%s" % j for j in range(len(row))])
             # columns as lists in a dictionary
             df_dict = {column: [] for column in columns}
             # create index for the column headers
