@@ -5,8 +5,8 @@ Provides a function to read in an ODS file and return a pandas DataFrame.
 
 It uses `ezodf` to read in the ods file. If a range is specified in the sheet
 to be imported, it seems that `ezodf` imports empty cells as well. Therefore,
-all completely empty rows and columns are dropped from the DataFrame, before
-it is returned.
+completely empty rows and columns are dropped from the DataFrame, before it is
+returned. Only trailing empty rows and columns are dropped.
 
 Dependencies
 ---
