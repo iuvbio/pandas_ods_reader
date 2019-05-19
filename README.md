@@ -18,7 +18,7 @@ Dependencies
 Installation
 ---
 
-`pip install pandas_read_ods`
+`pip install pandas_ods_reader`
 
 Usage
 ---
