@@ -1,7 +1,7 @@
 pandas_ods_reader
 ===
 
-Provides a function to read in an ODS file and return a pandas DataFrame.
+Provides a function to read in an ODS file and returns a pandas DataFrame.
 
 It uses `ezodf` to read in the ods file. If a range is specified in the sheet
 to be imported, it seems that `ezodf` imports empty cells as well. Therefore,
