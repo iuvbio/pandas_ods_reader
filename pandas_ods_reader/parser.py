@@ -30,7 +30,7 @@ def load_ods(doc, sheet, headers=True, columns=None):
             columns = columns if columns else (
                 ["column_%s" % j for j in range(len(row))])
             # columns as lists in a dictionary
-            df_dict = {column: [] for column in columns}
+            df_dict = {column: pd.Series([] for column in columns)}
             # create index for the column headers
             col_index = {j: column for j, column in enumerate(columns)}
             if headers:
