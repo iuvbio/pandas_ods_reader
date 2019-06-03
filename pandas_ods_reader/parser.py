@@ -38,7 +38,6 @@ def load_ods(doc, sheet, headers=True, columns=None):
         for j, cell in enumerate(row):
             if j < len(col_index):
                 # use header instead of column index
-                print(cell.value)
                 df_dict[col_index[j]].append(cell.value)
             else:
                 continue
