@@ -10,6 +10,7 @@ rsc = os.path.join(root, "rsc")
 
 header_file = "example_headers.ods"
 no_header_file = "example_no_headers.ods"
+duplicated_column_names_file = "example_duplicated_column_names.ods"
 
 
 class TestOdsReader(object):
@@ -45,3 +46,10 @@ class TestOdsReader(object):
         df = read_ods(path, 1, headers=False, columns=columns)
         assert list(df.columns) == columns
         assert len(df) == 10
+
+    def test_duplicated_column_names(self):
+        path = os.path.join(rsc, duplicated_column_names_file)
+        df = read_ods(path, 1)
+        assert isinstance(df, pd.DataFrame)
+        assert len(df.columns) == 4
+        assert "website.1" in df.columns
