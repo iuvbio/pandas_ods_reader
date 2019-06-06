@@ -10,6 +10,7 @@ rsc = os.path.join(root, "rsc")
 
 header_file = "example_headers.ods"
 no_header_file = "example_no_headers.ods"
+col_len_file = "example_col_lengths.ods"
 
 
 class TestOdsReader(object):
@@ -44,4 +45,10 @@ class TestOdsReader(object):
         columns = ["A", "B", "C", "D", "E"]
         df = read_ods(path, 1, headers=False, columns=columns)
         assert list(df.columns) == columns
+        assert len(df) == 10
+
+    def test_header_file_col_len(self):
+        path = os.path.join(rsc, col_len_file)
+        df = read_ods(path, 1)
+        assert isinstance(df, pd.DataFrame)
         assert len(df) == 10
