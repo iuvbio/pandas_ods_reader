@@ -19,12 +19,14 @@ class TestOdsReader(object):
         df = read_ods(path, 1)
         assert isinstance(df, pd.DataFrame)
         assert len(df) == 10
+        assert (len(df.columns) == 5)
 
     def test_header_file_with_str(self):
         path = os.path.join(rsc, header_file)
         df = read_ods(path, "Sheet1")
         assert isinstance(df, pd.DataFrame)
         assert len(df) == 10
+        assert (len(df.columns) == 5)
 
     def test_header_file_with_cols(self):
         path = os.path.join(rsc, header_file)
@@ -32,13 +34,15 @@ class TestOdsReader(object):
         df = read_ods(path, "Sheet1", columns=columns)
         assert list(df.columns) == columns
         assert len(df) == 10
+        assert (len(df.columns) == 5)
 
     def test_no_header_file_no_cols(self):
         path = os.path.join(rsc, no_header_file)
         df = read_ods(path, 1, headers=False)
         assert list(df.columns) == [
-            "column_%s" % i for i in range(len(df.columns))]
+            f"column_{i}" for i in range(len(df.columns))]
         assert len(df) == 10
+        assert (len(df.columns) == 5)
 
     def test_no_header_file_with_cols(self):
         path = os.path.join(rsc, no_header_file)
@@ -46,9 +50,11 @@ class TestOdsReader(object):
         df = read_ods(path, 1, headers=False, columns=columns)
         assert list(df.columns) == columns
         assert len(df) == 10
+        assert (len(df.columns) == 5)
 
     def test_header_file_col_len(self):
         path = os.path.join(rsc, col_len_file)
         df = read_ods(path, 1)
         assert isinstance(df, pd.DataFrame)
         assert len(df) == 10
+        assert (len(df.columns) == 5)
