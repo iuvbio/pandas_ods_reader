@@ -24,15 +24,15 @@ def load_ods(doc, sheet_id, headers=True, columns=None):
             # columns as lists in a dictionary
             columns = []
             for cell in row:
-                if cell.value:
-                    if cell.value not in columns:
-                        columns.append(cell.value)
-                    else:
-                        # add count to column name
-                        idx = 1
-                        while "{}.{}".format(cell.value, idx) in columns:
-                            idx += 1
-                        columns.append("{}.{}".format(cell.value, idx))
+                if cell.value and cell.value not in columns:
+                    columns.append(cell.value)
+                else:
+                    column_name = cell.value if cell.value else "unnamed"
+                    # add count to column name
+                    idx = 1
+                    while "{}.{}".format(column_name, idx) in columns:
+                        idx += 1
+                    columns.append("{}.{}".format(column_name, idx))
 
             df_dict = OrderedDict((column, []) for column in columns)
             # create index for the column headers

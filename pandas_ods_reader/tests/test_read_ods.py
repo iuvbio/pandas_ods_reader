@@ -13,6 +13,7 @@ header_file = "example_headers.ods"
 no_header_file = "example_no_headers.ods"
 duplicated_column_names_file = "example_duplicated_column_names.ods"
 col_len_file = "example_col_lengths.ods"
+missing_header_file = "example_missing_header.ods"
 
 
 class TestOdsReader(object):
@@ -79,3 +80,11 @@ class TestOdsReader(object):
         with pytest.raises(ValueError) as e_info:
             read_ods(path, sheet_name)
             assert e_info.match(f"There is no sheet named {sheet_name}")
+
+    def test_missing_header(self):
+        path = os.path.join(rsc, missing_header_file)
+        df = read_ods(path, 1)
+        assert isinstance(df, pd.DataFrame)
+        assert len(df) == 10
+        assert (len(df.columns) == 5)
+        assert df.columns[2] == "unnamed.1"
