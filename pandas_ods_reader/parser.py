@@ -6,16 +6,16 @@ from collections import OrderedDict
 from .tools import sanitize_df
 
 
-def load_ods(doc, sheet, headers=True, columns=None):
+def load_ods(doc, sheet_id, headers=True, columns=None):
     # convert the sheet to a pandas.DataFrame
-    if isinstance(sheet, int):
-        sheet = doc.sheets[sheet - 1]
-    elif isinstance(sheet, str):
+    if not isinstance(sheet_id, (int, str)):
+        raise ValueError("Sheet id has to be either `str` or `int`")
+    if isinstance(sheet_id, str):
         sheets = [sheet.name for sheet in doc.sheets]
-        if sheet not in sheets:
-            raise ValueError("There is no sheet named {}".format(sheet))
-        sheet_idx = sheets.index(sheet)
-        sheet = doc.sheets[sheet_idx]
+        if sheet_id not in sheets:
+            raise ValueError("There is no sheet named {}".format(sheet_id))
+        sheet_id = sheets.index(sheet_id) + 1
+    sheet = doc.sheets[sheet_id - 1]
     df_dict = OrderedDict()
     col_index = {}
     for i, row in enumerate(sheet.rows()):
@@ -42,7 +42,7 @@ def load_ods(doc, sheet, headers=True, columns=None):
             continue
         elif i == 0:
             columns = columns if columns else (
-                ["column_%s" % j for j in range(len(row))])
+                [f"column_{j}" for j in range(len(row))])
             # columns as lists in a dictionary
             df_dict = OrderedDict((column, []) for column in columns)
             # create index for the column headers
@@ -62,8 +62,8 @@ def load_ods(doc, sheet, headers=True, columns=None):
 def read_ods(file_or_path, sheet, headers=True, columns=None):
     """
     This function reads in the provided ods file and converts it to a
-    dictionary. The dictionary is converted to a DataFrame. Empty rows and
-    columns are dropped from the DataFrame, before it is returned.
+    dictionary. The dictionary is converted to a DataFrame. Trailing empty rows
+    and columns are dropped from the DataFrame, before it is returned.
 
     :param file_or_path: str
     the path to the ODS file
