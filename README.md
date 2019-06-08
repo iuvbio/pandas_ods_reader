@@ -8,6 +8,9 @@ to be imported, it seems that `ezodf` imports empty cells as well. Therefore,
 completely empty rows and columns are dropped from the DataFrame, before it is
 returned. Only trailing empty rows and columns are dropped.
 
+If the ODS file contains duplicated column names, they will be numbered and the
+number is appended to the column name in the resulting DataFrame.
+
 Dependencies
 ---
 
