@@ -42,7 +42,7 @@ def load_ods(doc, sheet_id, headers=True, columns=None):
             continue
         elif i == 0:
             columns = columns if columns else (
-                [f"column_{j}" for j in range(len(row))])
+                [f"column.{j}" for j in range(len(row))])
             # columns as lists in a dictionary
             df_dict = OrderedDict((column, []) for column in columns)
             # create index for the column headers

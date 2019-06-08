@@ -43,7 +43,7 @@ class TestOdsReader(object):
         path = os.path.join(rsc, no_header_file)
         df = read_ods(path, 1, headers=False)
         assert list(df.columns) == [
-            f"column_{i}" for i in range(len(df.columns))]
+            f"column.{i}" for i in range(len(df.columns))]
         assert len(df) == 10
         assert (len(df.columns) == 5)
 
