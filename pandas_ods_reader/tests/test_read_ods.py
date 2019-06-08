@@ -1,6 +1,7 @@
 import os
 
 import pandas as pd
+import pytest
 
 from pandas_ods_reader import read_ods
 
@@ -58,3 +59,16 @@ class TestOdsReader(object):
         assert isinstance(df, pd.DataFrame)
         assert len(df) == 10
         assert (len(df.columns) == 5)
+
+    def test_wrong_id_type(self):
+        path = os.path.join(rsc, header_file)
+        with pytest.raises(ValueError) as e_info:
+            read_ods(path, 1.0)
+            assert e_info.match("Sheet id has to be either `str` or `int`")
+
+    def test_non_existent_sheet(self):
+        path = os.path.join(rsc, header_file)
+        sheet_name = "No_Sheet"
+        with pytest.raises(ValueError) as e_info:
+            read_ods(path, sheet_name)
+            assert e_info.match(f"There is no sheet named {sheet_name}")
