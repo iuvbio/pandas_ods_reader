@@ -31,7 +31,7 @@ def load_ods(doc, sheet_id, headers=True, columns=None):
                         # add count to column name
                         idx = 1
                         while "{}.{}".format(cell.value, idx) in columns:
-                            idx +=1
+                            idx += 1
                         columns.append("{}.{}".format(cell.value, idx))
 
             df_dict = OrderedDict((column, []) for column in columns)
