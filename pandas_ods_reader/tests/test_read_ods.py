@@ -14,6 +14,7 @@ no_header_file = "example_no_headers.ods"
 duplicated_column_names_file = "example_duplicated_column_names.ods"
 col_len_file = "example_col_lengths.ods"
 missing_header_file = "example_missing_header.ods"
+mixed_dtypes_file = "mixed_dtypes.ods"
 
 
 class TestOdsReader(object):
@@ -88,3 +89,15 @@ class TestOdsReader(object):
         assert len(df) == 10
         assert (len(df.columns) == 5)
         assert df.columns[2] == "unnamed.1"
+
+    def test_mixed_dtypes(sefl):
+        path = os.path.join(rsc, mixed_dtypes_file)
+        df = read_ods(path, 1)
+        assert isinstance(df, pd.DataFrame)
+        assert len(df) == 10
+        assert (len(df.columns) == 5)
+
+        type_list = [float, object, float, float, object]
+        assert df.dtypes.tolist() == type_list
+        col_b_types = [type(v) for v in df.B.values]
+        assert str in col_b_types and float in col_b_types
