@@ -107,7 +107,7 @@ class TestOdsReader:
         path = rsc / header_file
         sheet_name = "No_Sheet"
 
-        with pytest.raises(ValueError) as e_info:
+        with pytest.raises(KeyError) as e_info:
             read_ods(path, sheet_name)
             assert e_info.match(f"There is no sheet named {sheet_name}")
 

@@ -14,7 +14,7 @@ def load_ods(doc, sheet_id, headers=True, columns=None):
     if isinstance(sheet_id, str):
         sheets = [sheet.name for sheet in doc.sheets]
         if sheet_id not in sheets:
-            raise ValueError("There is no sheet named {}".format(sheet_id))
+            raise KeyError("There is no sheet named {}".format(sheet_id))
         sheet_id = sheets.index(sheet_id) + 1
     sheet = doc.sheets[sheet_id - 1]
     df_dict = OrderedDict()
