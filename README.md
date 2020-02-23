@@ -31,6 +31,9 @@ from pandas_ods_reader import read_ods
 
 path = "path/to/file.ods"
 
+# by default the first sheet is imported
+df = pd.read_ods(path)
+
 # load a sheet based on its index (1 based)
 sheet_idx = 1
 df = read_ods(path, sheet_idx)

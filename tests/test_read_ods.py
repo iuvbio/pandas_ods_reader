@@ -18,7 +18,16 @@ missing_header_file = "example_missing_header.ods"
 mixed_dtypes_file = "mixed_dtypes.ods"
 
 
-class TestOdsReader(object):
+class TestOdsReader:
+
+    def test_header_file_simple(self):
+
+        path = rsc / header_file
+        df = read_ods(path)
+
+        assert isinstance(df, pd.DataFrame)
+        assert len(df) == 10
+        assert (len(df.columns) == 5)
 
     def test_header_file_with_int(self):
 

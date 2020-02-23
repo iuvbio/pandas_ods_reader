@@ -59,7 +59,7 @@ def load_ods(doc, sheet_id, headers=True, columns=None):
     return df
 
 
-def read_ods(file_or_path, sheet, headers=True, columns=None):
+def read_ods(file_or_path, sheet=1, headers=True, columns=None):
     """
     This function reads in the provided ods file and converts it to a
     dictionary. The dictionary is converted to a DataFrame. Trailing empty rows
@@ -67,7 +67,7 @@ def read_ods(file_or_path, sheet, headers=True, columns=None):
 
     :param file_or_path: str
     the path to the ODS file
-    :param sheet: int or str
+    :param sheet: int or str, default 1
     if int, the 1 based index of the sheet to be read in. If str, the name of
     the sheet to be read in
     :param header: bool, default True
