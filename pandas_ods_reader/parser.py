@@ -1,7 +1,8 @@
 """Imports an ods file into a DataFrame object"""
+from collections import OrderedDict
+
 import ezodf
 import pandas as pd
-from collections import OrderedDict
 
 from .tools import sanitize_df
 
