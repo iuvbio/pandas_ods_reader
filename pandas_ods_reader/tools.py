@@ -2,7 +2,8 @@
 
 
 def ods_info(doc):
-    """Prints the number of sheets, their names, and number of rows and columns"""
+    """Prints the number of sheets, their names, and number of rows and columns
+    """
     print("Spreadsheet contains %d sheet(s)." % len(doc.sheets))
     for sheet in doc.sheets:
         print("-"*40)
