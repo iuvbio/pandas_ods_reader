@@ -1,13 +1,19 @@
+
 from setuptools import setup, find_packages
 
 
-VERSION = "0.0.7"
+version = None
+with open('pandas_ods_reader/__init__.py') as f:
+    for line in f.readlines():
+        if not line.startswith('__version__'):
+            continue
+        version = line.split(' = ')[1].strip()[1:-1]
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setup(name="pandas_ods_reader",
-      version=VERSION,
+      version=version,
       description="Read in an ODS file and return it as a pandas.DataFrame",
       long_description=long_description,
       long_description_content_type="text/markdown",
@@ -25,6 +31,6 @@ setup(name="pandas_ods_reader",
       packages=find_packages(),
       zip_safe=False,
       install_requires=["ezodf", "pandas", "lxml"],
-      setup_requires=["pytest-runner"],
+      setup_requires=["pytest-runner"],  # TODO: remove pytest-runner
       tests_require=["pytest"]
       )
