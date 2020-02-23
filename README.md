@@ -14,9 +14,9 @@ number is appended to the column name in the resulting DataFrame.
 Dependencies
 ---
 
-- `ezodf`
-- `lxml`
-- `pandas`
+-   `ezodf`
+-   `lxml`
+-   `pandas`
 
 Installation
 ---
