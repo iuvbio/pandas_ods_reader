@@ -122,7 +122,7 @@ class TestOdsReader:
 
         assert df.columns[2] == "unnamed.1"
 
-    def test_mixed_dtypes(sefl):
+    def test_mixed_dtypes(self):
 
         path = rsc / mixed_dtypes_file
         df = read_ods(path, 1)
