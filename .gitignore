@@ -2,22 +2,25 @@
 *.pyc
 
 # Setuptools distribution folder.
-/dist/
+dist/
 
 # Python egg metadata, regenerated from source files by setuptools.
-/*.egg-info
+*.egg-info
 
 # Build folder.
-/build/
+build/
 
 # PyCharm idea folder.
-/.idea/
+.idea/
 
 # PyTest folder
-/.pytest_cache/
+.pytest_cache/
 
 # Dev .eggs folder
-/.eggs/
+.eggs/
 
 # Pycache folders
-*__pycache__/
+__pycache__/
+
+# Virtual env dir
+venv/
