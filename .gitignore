@@ -24,3 +24,6 @@ __pycache__/
 
 # Virtual env dir
 venv/
+
+# vim config
+.vim/
