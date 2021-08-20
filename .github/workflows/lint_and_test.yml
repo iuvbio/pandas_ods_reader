@@ -28,4 +28,4 @@ jobs:
         black --check pandas_ods_reader/
     - name: Test with pytest
       run: |
-        pytest tests/
+        python -m pytest tests/
