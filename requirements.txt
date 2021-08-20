@@ -1,3 +1,0 @@
-ezodf
-lxml
-pandas
