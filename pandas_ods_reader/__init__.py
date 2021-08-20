@@ -1,5 +1,6 @@
+import pkg_resources
 
 from .parser import read_ods
 
 
-__version__ = '0.0.8'
+__version__ = pkg_resources.get_distribution("pandas_ods_reader").version
