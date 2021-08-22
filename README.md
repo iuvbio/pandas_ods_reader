@@ -1,4 +1,4 @@
-pandas_ods_reader
+pandas-ods-reader
 ===
 
 Provides a function to read in a **.ods** or **.fods** file and returns a pandas DataFrame.
@@ -19,7 +19,7 @@ Dependencies
 Installation
 ---
 
-`pip install pandas_ods_reader`
+`pip install pandas-ods-reader`
 
 Usage
 ---
