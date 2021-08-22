@@ -25,7 +25,7 @@ jobs:
     - name: Lint with black
       run: |
         # stop the build if there are Python syntax errors or undefined names
-        black --check pandas_ods_reader/
+        black --check --diff pandas_ods_reader/ tests/
     - name: Test with pytest
       run: |
         python -m pytest tests/
