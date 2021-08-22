@@ -1,15 +1,13 @@
 pandas_ods_reader
 ===
 
-Provides a function to read in an ODS file and returns a pandas DataFrame.
+Provides a function to read in a **.ods** or **.fods** file and returns a pandas DataFrame.
 
-It uses `ezodf` to read in the ods file. If a range is specified in the sheet
-to be imported, it seems that `ezodf` imports empty cells as well. Therefore,
-completely empty rows and columns are dropped from the DataFrame, before it is
-returned. Only trailing empty rows and columns are dropped.
+It uses `ezodf` to read in **.ods** files. Since **.fods** files are essentially xml, `lxml` is used to read them. The correct parser is automatically chosen based on the file's extension.
 
-If the ODS file contains duplicated column names, they will be numbered and the
-number is appended to the column name in the resulting DataFrame.
+If a range is specified in the sheet to be imported, it seems that `ezodf` imports empty cells as well. Therefore, completely empty rows and columns are dropped from the DataFrame, before it is returned. Only trailing empty rows and columns are dropped.
+
+If the ODS file contains duplicated column names, they will be numbered and the number is appended to the column name in the resulting DataFrame.
 
 Dependencies
 ---
@@ -35,7 +33,7 @@ path = "path/to/file.ods"
 df = read_ods(path)
 
 # load a sheet based on its index (1 based)
-sheet_idx = 1
+sheet_idx = 2
 df = read_ods(path, sheet_idx)
 
 # load a sheet based on its name
