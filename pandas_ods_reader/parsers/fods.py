@@ -1,9 +1,4 @@
-from collections import defaultdict
-
 from lxml import etree
-import pandas as pd
-
-from ..tools import sanitize_df
 
 
 BODY_TAG = "office:body"
@@ -16,6 +11,10 @@ TABLE_CELL_TAG = "table:table-cell"
 TABLE_CELL_TEXT_TAG = "text:p"
 TABLE_CELL_REPEATED_ATTRIB = "number-columns-repeated"
 VALUE_TYPE_ATTRIB = "value-type"
+
+
+def get_doc(file_or_path):
+    return etree.parse(str(file_or_path))
 
 
 def get_sheet(spreadsheet, sheet_id):
@@ -33,52 +32,7 @@ def get_sheet(spreadsheet, sheet_id):
     return tables[sheet_id - 1]
 
 
-def parse_columns(cells, headers=True, columns=None):
-    orig_columns = cells.pop(0) if headers else None
-    if columns is None:
-        if orig_columns:
-            repeated_val = None
-            columns = []
-            repeated_dict = defaultdict(lambda: 0)
-            for i, col in enumerate(orig_columns):
-                text = col.find(TABLE_CELL_TEXT_TAG, namespaces=col.nsmap)
-                if text is not None:
-                    value = text.text
-                elif text is None and repeated_val:
-                    value = repeated_val
-                else:
-                    value = "unnamed"
-                    idx = 1
-                    while "{}.{}".format(value, idx) in columns:
-                        idx += 1
-                    value = f"{value}.{idx}"
-                repeated = col.attrib.get(
-                    f"{{{col.nsmap[TABLE_KEY]}}}{TABLE_CELL_REPEATED_ATTRIB}"
-                )
-                if repeated:
-                    repeated_dict[value] += 1
-                    repeated_val = f"{value}.{repeated_dict[value]}"
-                column = value if value not in columns else f"{value}.{i}"
-                columns.append(column)
-        else:
-            columns = [f"column.{i}" for i in range(len(cells[0]))]
-    return columns, cells
-
-
-def parse_value(cell):
-    text = cell.find(TABLE_CELL_TEXT_TAG, namespaces=cell.nsmap)
-    is_float = (
-        cell.attrib.get(f"{{{cell.nsmap[OFFICE_KEY]}}}{VALUE_TYPE_ATTRIB}") == "float"
-    )
-    if text is None:
-        return None
-    value = text.text
-    if is_float:
-        return float(value)
-    return value
-
-
-def load_fods(doc, sheet_id, headers=True, columns=None):
+def get_rows(doc, sheet_id):
     if not isinstance(sheet_id, (str, int)):
         raise ValueError("Sheet id has to be either `str` or `int`")
     root = doc.getroot()
@@ -88,28 +42,24 @@ def load_fods(doc, sheet_id, headers=True, columns=None):
     )
     sheet = get_sheet(spreadsheet, sheet_id)
     rows = sheet.findall(TABLE_ROW_TAG, namespaces=namespaces)
-    allcells = []
-    for row in rows:
-        cells = row.findall(TABLE_CELL_TAG, namespaces=namespaces)
-        allcells.append(cells)
-    columns, values = parse_columns(allcells, headers, columns)
-    data = []
-    for row in values:
-        rowvalues = [parse_value(cell) for cell in row]
-        data.append(rowvalues)
-    final_rows = []
-    for row in data:
-        final_row = []
-        for i in range(len(columns)):
-            if i < len(row):
-                final_row.append(row[i])
-            else:
-                final_row.append(None)
-        final_rows.append(final_row)
-    return pd.DataFrame(final_rows, columns=columns)
+    return rows
 
 
-def read(file_or_path, sheet=1, headers=True, columns=None):
-    doc = etree.parse(str(file_or_path))
-    df = load_fods(doc, sheet, headers=headers, columns=columns)
-    return sanitize_df(df)
+def is_float(cell):
+    return (
+        cell.attrib.get(f"{{{cell.nsmap[OFFICE_KEY]}}}{VALUE_TYPE_ATTRIB}") == "float"
+    )
+
+
+def get_value(cell, parsed=False):
+    text = cell.find(TABLE_CELL_TEXT_TAG, namespaces=cell.nsmap)
+    if text is None:
+        return None, 0
+    value = text.text
+    if parsed and is_float(cell):
+        value = float(value)
+    n_repeated = cell.attrib.get(
+        f"{{{cell.nsmap[TABLE_KEY]}}}{TABLE_CELL_REPEATED_ATTRIB}"
+    )
+    n_repeated = int(n_repeated) if n_repeated is not None else 0
+    return value, n_repeated
