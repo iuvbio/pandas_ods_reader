@@ -29,9 +29,7 @@ def read_ods(file_or_path, sheet=1, headers=True, columns=None):
     pandas.DataFrame
         The content of the specified sheet as a DataFrame.
     """
-    backend = EXT_MAP.get(Path(file_or_path).suffix)
-    if not backend:
-        raise ValueError("Unknown filetype.")
+    backend = EXT_MAP.get(Path(file_or_path).suffix, ods)
     return algo.read_data(
         backend, file_or_path, sheet, headers=headers, columns=columns
     )
