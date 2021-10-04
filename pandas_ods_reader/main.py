@@ -10,7 +10,9 @@ EXT_MAP = {".ods": ods, ".fods": fods}
 
 def read_ods(file_or_path, sheet=1, headers=True, columns=None):
     """
-    Read in the provided ods file and convert it to `pandas.DataFrame`.
+    Read in the provided ods or .ods file and convert it to `pandas.DataFrame`.
+    Will detect the filetype based on the file's extension or fall back to
+    ods.
 
     Parameters
     ----------
