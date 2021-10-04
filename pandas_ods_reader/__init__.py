@@ -2,14 +2,10 @@ import sys
 
 from .main import read_ods
 
-
-__distname__ = "pandas-ods-reader"
-
 if sys.version_info >= (3, 8):
-    import importlib.metadata
-
-    __version__ = importlib.metadata.version(__distname__)
+    from importlib.metadata import version
 else:
-    import pkg_resources
+    from importlib_metadata import version
 
-    __version__ = pkg_resources.get_distribution(__distname__).version
+
+__version__ = version("pandas-ods-reader")
