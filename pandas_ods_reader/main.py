@@ -8,7 +8,7 @@ from . import algo
 EXT_MAP = {".ods": ods, ".fods": fods}
 
 
-def read_ods(file_or_path, sheet=1, headers=True, columns=None):
+def read_ods(file_or_path, sheet=1, headers=True, columns=None, skiprows=0):
     """
     Read in the provided ods or .ods file and convert it to `pandas.DataFrame`.
     Will detect the filetype based on the file's extension or fall back to
@@ -33,5 +33,8 @@ def read_ods(file_or_path, sheet=1, headers=True, columns=None):
     """
     backend = EXT_MAP.get(Path(file_or_path).suffix, ods)
     return algo.read_data(
-        backend, file_or_path, sheet, headers=headers, columns=columns
+        backend,
+        file_or_path,
+        sheet,
+        headers=headers, columns=columns, skiprows=skiprows
     )

@@ -27,3 +27,6 @@ venv/
 
 # vim config
 .vim/
+
+*.ods
+.py39/
