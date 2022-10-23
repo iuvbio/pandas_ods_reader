@@ -1,13 +1,21 @@
 from collections import OrderedDict
+from unittest import skip
 
 import pandas as pd
 
 from .utils import sanitize_df
 
 
-def parse_data(backend, rows, headers=True, columns=None):
+def parse_data(backend, rows, headers=True, columns=None, skiprows=None):
     df_dict = OrderedDict()
     col_index = {}
+    if skiprows is not None:
+        if isinstance(skiprows, int):
+            for _ in range(skiprows):
+                next(rows)
+        else:
+            message = f"'skiprows' must be int. {type(skiprows)} was given."
+            raise ValueError(message)
     for i, row in enumerate(rows):
         # row is a list of cells
         if headers and i == 0 and not columns:
@@ -59,8 +67,13 @@ def parse_data(backend, rows, headers=True, columns=None):
     return df
 
 
-def read_data(backend, file_or_path, sheet_id, headers=True, columns=None):
+def read_data(
+    backend, file_or_path, sheet_id,
+    headers=True, columns=None, skiprows=0
+):
     doc = backend.get_doc(file_or_path)
     rows = backend.get_rows(doc, sheet_id)
-    df = parse_data(backend, rows, headers=headers, columns=columns)
+    df = parse_data(
+        backend, rows, headers=headers, columns=columns, skiprows=skiprows
+    )
     return sanitize_df(df)
