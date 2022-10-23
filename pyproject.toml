@@ -15,11 +15,10 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.8"
 ezodf = "^0.3.2"
-lxml = "^4.6.3"
-pandas = "^1.0.0"
-importlib_metadata = { version = "^4.8.1", python = ">=3.7,<3.8" }
+lxml = "^4.9.1"
+pandas = "^1.5.1"
 
 [tool.poetry.group.dev.dependencies]
 black = "^21.9-beta.0"
