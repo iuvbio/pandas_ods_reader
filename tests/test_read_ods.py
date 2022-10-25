@@ -16,6 +16,7 @@ duplicated_column_names_file = "example_duplicated_column_names.ods"
 col_len_file = "example_col_lengths.ods"
 missing_header_file = "example_missing_header.ods"
 mixed_dtypes_file = "mixed_dtypes.ods"
+skiprows_file = "example_skiprows.ods"
 
 
 class TestOdsReader:
@@ -145,3 +146,13 @@ class TestOdsReader:
         assert df.dtypes.tolist() == type_list
         col_b_types = [type(v) for v in df.B.values]
         assert str in col_b_types and float in col_b_types
+
+    @pytest.mark.parametrize("suffix", [".ods", ".fods"])
+    def test_skiprows(self, suffix):
+
+        path = rsc / skiprows_file
+        df = read_ods(path.with_suffix(suffix), skiprows=2)
+        assert isinstance(df, pd.DataFrame)
+        assert len(df) == 8
+        assert len(df.columns) == 5
+        assert all(df.columns == 'a b c d e'.split(' '))
