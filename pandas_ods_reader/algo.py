@@ -1,5 +1,4 @@
 from collections import OrderedDict
-from unittest import skip
 
 import pandas as pd
 
@@ -67,13 +66,8 @@ def parse_data(backend, rows, headers=True, columns=None, skiprows=None):
     return df
 
 
-def read_data(
-    backend, file_or_path, sheet_id,
-    headers=True, columns=None, skiprows=0
-):
+def read_data(backend, file_or_path, sheet_id, headers=True, columns=None, skiprows=0):
     doc = backend.get_doc(file_or_path)
     rows = backend.get_rows(doc, sheet_id)
-    df = parse_data(
-        backend, rows, headers=headers, columns=columns, skiprows=skiprows
-    )
+    df = parse_data(backend, rows, headers=headers, columns=columns, skiprows=skiprows)
     return sanitize_df(df)

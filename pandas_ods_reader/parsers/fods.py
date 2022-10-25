@@ -42,7 +42,8 @@ def get_rows(doc, sheet_id):
     )
     sheet = get_sheet(spreadsheet, sheet_id)
     rows = sheet.findall(TABLE_ROW_TAG, namespaces=namespaces)
-    return rows
+    for row in rows:
+        yield row
 
 
 def is_float(cell):
