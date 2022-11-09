@@ -12,40 +12,44 @@ def parse_data(backend, rows, headers=True, columns=None, skiprows=0):
         next(rows)
     for i, row in enumerate(rows):
         # row is a list of cells
-        if headers and i == 0 and not columns:
-            repeat_until = -1
-            repeat_value = None
-            # columns as lists in a dictionary
-            columns = []
-            # parse the first row as column names
-            for k, cell in enumerate(row):
-                value, n_repeated = backend.get_value(cell)
-                if n_repeated > 0:
-                    repeat_value = value
-                    repeat_until = n_repeated + k
-                if not value and k <= repeat_until:
-                    value = repeat_value
-                if k == repeat_until:
-                    # reset to allow for more than one repeated column
-                    repeat_until = -1
-                if value and value not in columns:
-                    columns.append(value)
-                else:
-                    column_name = value if value else "unnamed"
-                    # add count to column name
-                    idx = 1
-                    while f"{column_name}.{idx}" in columns:
-                        idx += 1
-                    columns.append(f"{column_name}.{idx}")
-        elif i == 0:
-            # without headers, assign generic numbered column names
-            columns = columns if columns else [f"column.{j}" for j in range(len(row))]
         if i == 0:
+            if not columns:
+                if headers:
+                    repeat_until = -1
+                    repeat_value = None
+                    # columns as lists in a dictionary
+                    columns = []
+                    # parse the first row as column names
+                    for k, cell in enumerate(row):
+                        value, n_repeated = backend.get_value(cell)
+                        if n_repeated > 0:
+                            repeat_value = value
+                            repeat_until = n_repeated + k
+                        if not value and k <= repeat_until:
+                            value = repeat_value
+                        if k == repeat_until:
+                            # reset to allow for more than one repeated column
+                            repeat_until = -1
+                        if value and value not in columns:
+                            columns.append(value)
+                        else:
+                            column_name = value if value else "unnamed"
+                            # add count to column name
+                            idx = 1
+                            while f"{column_name}.{idx}" in columns:
+                                idx += 1
+                            columns.append(f"{column_name}.{idx}")
+                else:
+                    # without headers, assign generic numbered column names
+                    columns = [f"column.{j}" for j in range(len(row))]
+
             df_dict = OrderedDict((column, []) for column in columns)
             # create index for the column headers
             col_index = {j: column for j, column in enumerate(columns)}
+
             if headers:
                 continue
+
         for j, cell in enumerate(row):
             if j < len(col_index):
                 value, _ = backend.get_value(cell, parsed=True)
