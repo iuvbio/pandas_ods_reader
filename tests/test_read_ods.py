@@ -155,4 +155,4 @@ class TestOdsReader:
         assert isinstance(df, pd.DataFrame)
         assert len(df) == 8
         assert len(df.columns) == 5
-        assert all(df.columns == 'a b c d e'.split(' '))
+        assert df.columns.tolist() == ["a", "b", "c", "d", "e"]
