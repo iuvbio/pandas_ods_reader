@@ -25,6 +25,8 @@ def read_ods(file_or_path, sheet=1, headers=True, columns=None, skiprows=0):
         If `True`, then the first row is treated as the list of column names.
     columns : list, default None, optional
         A list of column names to be used as headers.
+    skiprows : int, default 0
+        The number of rows to skip before starting to read data.
 
     Returns
     -------
