@@ -5,16 +5,11 @@ import pandas as pd
 from .utils import sanitize_df
 
 
-def parse_data(backend, rows, headers=True, columns=None, skiprows=None):
+def parse_data(backend, rows, headers=True, columns=None, skiprows=0):
     df_dict = OrderedDict()
     col_index = {}
-    if skiprows is not None:
-        if isinstance(skiprows, int):
-            for _ in range(skiprows):
-                next(rows)
-        else:
-            message = f"'skiprows' must be int. {type(skiprows)} was given."
-            raise ValueError(message)
+    for _ in range(skiprows):
+        next(rows)
     for i, row in enumerate(rows):
         # row is a list of cells
         if headers and i == 0 and not columns:
