@@ -1,5 +1,8 @@
 """Imports an ods or fods file into a DataFrame object"""
 from pathlib import Path
+from typing import Optional, Union
+
+import pandas as pd
 
 from .parsers import fods, ods
 from . import algo
@@ -8,29 +11,27 @@ from . import algo
 EXT_MAP = {".ods": ods, ".fods": fods}
 
 
-def read_ods(file_or_path, sheet=1, headers=True, columns=None, skiprows=0):
+def read_ods(
+    file_or_path: Union[str, Path],
+    sheet: Union[str, int] = 1,
+    headers: bool = True,
+    columns: Optional[list[str]] = None,
+    skiprows: int = 0,
+) -> pd.DataFrame:
     """
     Read in the provided ods or .ods file and convert it to `pandas.DataFrame`.
     Will detect the filetype based on the file's extension or fall back to
     ods.
 
-    Parameters
-    ----------
-    file_or_path : str or pathlib.Path
-        The path to the .ods or .fods file.
-    sheet : int or str, default 1
-        If `int`, the 1 based index of the sheet to be read. If `str`, the
-        name of the sheet to be read.
-    headers : bool, default True
-        If `True`, then the first row is treated as the list of column names.
-    columns : list, default None, optional
-        A list of column names to be used as headers.
-    skiprows : int, default 0
-        The number of rows to skip before starting to read data.
+    Args:
+        file_or_path: The path to the .ods or .fods file.
+        sheet: If `int`, the 1 based index of the sheet to be read. If `str`, the
+            name of the sheet to be read.
+        headers: If `True`, then the first row is treated as the list of column names.
+        columns: A list of column names to be used as headers.
+        skiprows: The number of rows to skip before starting to read data.
 
-    Returns
-    -------
-    pandas.DataFrame
+    Returns:
         The content of the specified sheet as a DataFrame.
     """
     backend = EXT_MAP.get(Path(file_or_path).suffix, ods)
