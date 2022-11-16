@@ -1,4 +1,5 @@
 """Provides utility functions for the parser"""
+import pandas as pd
 
 
 def ods_info(doc):
@@ -14,8 +15,8 @@ def ods_info(doc):
         )
 
 
-def sanitize_df(df):
-    """Drop empty rows and columns from the DataFrame and returns it"""
+def sanitize_df(df: pd.DataFrame) -> pd.DataFrame:
+    """Drop empty rows and columns from the DataFrame and return it."""
     # Delete empty rows
     for i in df.index.tolist()[-1::-1]:
         if df.iloc[i].isna().all():

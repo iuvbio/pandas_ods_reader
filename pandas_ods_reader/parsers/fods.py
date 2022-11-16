@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from lxml import etree
 
 
@@ -13,7 +15,7 @@ TABLE_CELL_REPEATED_ATTRIB = "number-columns-repeated"
 VALUE_TYPE_ATTRIB = "value-type"
 
 
-def get_doc(file_or_path):
+def get_doc(file_or_path: Path):
     return etree.parse(str(file_or_path))
 
 
@@ -21,7 +23,8 @@ def get_sheet(spreadsheet, sheet_id):
     namespaces = spreadsheet.nsmap
     if isinstance(sheet_id, str):
         sheet = spreadsheet.find(
-            f"{TABLE_TAG}[@table:name='{sheet_id}']", namespaces=namespaces
+            f"{TABLE_TAG}[@table:name='{sheet_id}']",
+            namespaces=namespaces,
         )
         if sheet is None:
             raise KeyError(f"There is no sheet named {sheet_id}.")
