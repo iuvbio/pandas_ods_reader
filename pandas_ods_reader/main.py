@@ -37,9 +37,9 @@ def read_ods(
     backend = EXT_MAP.get(Path(file_or_path).suffix, ods)
     return algo.read_data(
         backend,
-        file_or_path,
+        Path(file_or_path),
         sheet,
         headers=headers,
-        columns=columns,
+        columns=columns or [],
         skiprows=skiprows,
     )
