@@ -34,6 +34,9 @@ def read_ods(
     Returns:
         The content of the specified sheet as a DataFrame.
     """
+    path = file_or_path if isinstance(file_or_path, Path) else Path(file_or_path)
+    if not path.is_file():
+        raise FileNotFoundError(f"file {file_or_path} does not exist")
     backend = EXT_MAP.get(Path(file_or_path).suffix, ods)
     return algo.read_data(
         backend,
