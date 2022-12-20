@@ -156,3 +156,9 @@ class TestOdsReader:
         assert len(df) == 8
         assert len(df.columns) == 5
         assert df.columns.tolist() == ["a", "b", "c", "d", "e"]
+
+    def test_invalid_path(self):
+
+        path = rsc / "does-not-exist.ods"
+        with pytest.raises(FileNotFoundError, match="does not exist"):
+            read_ods(path)
