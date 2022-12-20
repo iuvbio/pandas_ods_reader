@@ -114,7 +114,7 @@ def test_wrong_id_type(suffix: str) -> None:
     path = rsc / header_file
 
     with pytest.raises(ValueError) as e_info:
-        read_ods(path.with_suffix(suffix), 1.0)
+        read_ods(path.with_suffix(suffix), 1.0)  # type: ignore[arg-type]
         assert e_info.match("Sheet id has to be either `str` or `int`")
 
 
