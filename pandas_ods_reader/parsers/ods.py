@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Any, Iterator, Union
+from typing import Any, Iterator, List, Tuple, Union
 
 import ezodf  # type: ignore[import]
 from ezodf.document import FlatXMLDocument, PackagedDocument  # type: ignore[import]
@@ -12,11 +12,11 @@ def get_doc(file_or_path: Path) -> Union[FlatXMLDocument, PackagedDocument]:
 def get_rows(
     doc: Union[FlatXMLDocument, PackagedDocument],
     sheet_id: Union[str, int],
-) -> Iterator[list[ezodf.Cell]]:
+) -> Iterator[List[ezodf.Cell]]:
     if not isinstance(sheet_id, (int, str)):
         raise ValueError("Sheet id has to be either `str` or `int`")
     if isinstance(sheet_id, str):
-        sheets: list[str] = [sheet.name for sheet in doc.sheets]
+        sheets: List[str] = [sheet.name for sheet in doc.sheets]
         if sheet_id not in sheets:
             raise KeyError("There is no sheet named {}".format(sheet_id))
         sheet_id = sheets.index(sheet_id) + 1
@@ -24,5 +24,5 @@ def get_rows(
     return sheet.rows()
 
 
-def get_value(cell: ezodf.Cell, parsed: bool = False) -> tuple[Any, int]:
+def get_value(cell: ezodf.Cell, parsed: bool = False) -> Tuple[Any, int]:
     return cell.value, 0
