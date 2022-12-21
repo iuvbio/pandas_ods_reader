@@ -1,8 +1,8 @@
 from pathlib import Path
 from typing import Any, Iterator, Union
 
-import ezodf
-from ezodf.document import FlatXMLDocument, PackagedDocument
+import ezodf  # type: ignore[import]
+from ezodf.document import FlatXMLDocument, PackagedDocument  # type: ignore[import]
 
 
 def get_doc(file_or_path: Path) -> Union[FlatXMLDocument, PackagedDocument]:
