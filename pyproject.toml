@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pandas-ods-reader"
-version = "0.1.4"
+version = "0.2.0"
 description = "Read in .ods and .fods files and return a pandas.DataFrame."
 authors = ["iuvbio <iuvbio@users.noreply.github.com>"]
 license = "MIT"
@@ -32,7 +32,7 @@ commitizen = "^2.38.0"
 
 [tool.commitizen]
 name = "cz_conventional_commits"
-version = "0.1.4"
+version = "0.2.0"
 tag_format = "v$version"
 version_files = ["pyproject.toml:version"]
 
