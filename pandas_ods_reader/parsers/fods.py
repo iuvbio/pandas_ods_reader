@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Iterator, Optional, Union
+from typing import Iterator, Optional, Tuple, Union
 
 from lxml import etree
 
@@ -60,7 +60,7 @@ def is_float(cell: etree._Element) -> bool:
 def get_value(
     cell: etree._Element,
     parsed: bool = False,
-) -> tuple[Optional[Union[str, float]], int]:
+) -> Tuple[Optional[Union[str, float]], int]:
     text = cell.find(TABLE_CELL_TEXT_TAG, namespaces=cell.nsmap)
     if text is None:
         return None, 0
