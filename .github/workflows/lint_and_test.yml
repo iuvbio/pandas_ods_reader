@@ -40,6 +40,8 @@ jobs:
       run: |
         # stop the build if there are Python syntax errors or undefined names
         black --check --diff pandas_ods_reader/ tests/
+        flake8 pandas_ods_reader/ tests/
+        mypy pandas_ods_reader/ tests/
     - name: Test with pytest
       run: |
         python -m pytest --cov tests/
