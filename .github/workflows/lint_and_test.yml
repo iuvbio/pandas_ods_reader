@@ -42,4 +42,4 @@ jobs:
         black --check --diff pandas_ods_reader/ tests/
     - name: Test with pytest
       run: |
-        python -m pytest tests/
+        python -m pytest --cov tests/
