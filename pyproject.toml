@@ -28,6 +28,12 @@ mypy = "^0.991"
 flake8 = "^6.0.0"
 pandas-stubs = "^1.5.2.221213"
 types-lxml = "^2022.11.8"
+commitizen = "^2.38.0"
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+version = "0.1.4"
+tag_format = "v$version"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
