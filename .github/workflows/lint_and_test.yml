@@ -2,7 +2,7 @@ name: Lint and test
 
 on:
   push:
-    branches: [ master, poetry ]
+    branches: [ "**" ]
   pull_request:
     branches: [ master ]
 
