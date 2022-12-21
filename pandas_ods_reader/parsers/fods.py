@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Any, Iterator, Union
+from typing import Iterator, Optional, Union
 
 from lxml import etree
 
@@ -44,7 +44,7 @@ def get_rows(
         raise ValueError("Sheet id has to be either `str` or `int`")
     root = doc.getroot()
     namespaces = root.nsmap
-    spreadsheet = doc.find(BODY_TAG, namespaces=namespaces).find(
+    spreadsheet = doc.find(BODY_TAG, namespaces=namespaces).find(  # type: ignore
         SPREADSHEET_TAG, namespaces=namespaces
     )
     sheet = get_sheet(spreadsheet, sheet_id)
@@ -57,15 +57,18 @@ def is_float(cell: etree._Element) -> bool:
     )
 
 
-def get_value(cell: etree._Element, parsed: bool = False) -> tuple[Any, int]:
+def get_value(
+    cell: etree._Element,
+    parsed: bool = False,
+) -> tuple[Optional[Union[str, float]], int]:
     text = cell.find(TABLE_CELL_TEXT_TAG, namespaces=cell.nsmap)
     if text is None:
         return None, 0
-    value = text.text
+    value: Union[str, float] = text.text or ""
     if parsed and is_float(cell):
         value = float(value)
-    n_repeated = cell.attrib.get(
+    _n_repeated = cell.attrib.get(
         f"{{{cell.nsmap[TABLE_KEY]}}}{TABLE_CELL_REPEATED_ATTRIB}"
     )
-    n_repeated = int(n_repeated) if n_repeated is not None else 0
+    n_repeated = int(_n_repeated) if _n_repeated is not None else 0
     return value, n_repeated
