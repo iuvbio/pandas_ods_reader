@@ -30,3 +30,6 @@ venv/
 
 # Coverage
 .coverage
+
+# mypy
+.mypy_cache/
