@@ -1,14 +1,14 @@
 from collections import OrderedDict
 from pathlib import Path
 from types import ModuleType
-from typing import Any, Iterator, Union
+from typing import Any, Dict, Iterator, List, Union
 
 import pandas as pd
 
 from .utils import sanitize_df
 
 
-def get_columns_from_headers(backend: ModuleType, row: Any) -> list[str]:
+def get_columns_from_headers(backend: ModuleType, row: Any) -> List[str]:
     repeat_until = -1
     repeat_value = None
     # columns as lists in a dictionary
@@ -36,11 +36,11 @@ def get_columns_from_headers(backend: ModuleType, row: Any) -> list[str]:
     return columns
 
 
-def get_generic_columns(row: Any) -> list[str]:
+def get_generic_columns(row: Any) -> List[str]:
     return [f"column.{j}" for j in range(len(row))]
 
 
-def get_columns(backend: ModuleType, row: Any, headers: bool) -> list[str]:
+def get_columns(backend: ModuleType, row: Any, headers: bool) -> List[str]:
     if headers:
         return get_columns_from_headers(backend, row)
     return get_generic_columns(row)
@@ -48,13 +48,13 @@ def get_columns(backend: ModuleType, row: Any, headers: bool) -> list[str]:
 
 def parse_data(
     backend: ModuleType,
-    rows: Iterator[list[Any]],
+    rows: Iterator[List[Any]],
     headers: bool,
-    columns: list[str],
+    columns: List[str],
     skiprows: int,
 ) -> pd.DataFrame:
     df_dict: OrderedDict[str, Any] = OrderedDict()
-    col_index: dict[int, str] = {}
+    col_index: Dict[int, str] = {}
 
     for _ in range(skiprows):
         next(rows)
@@ -90,7 +90,7 @@ def read_data(
     file_or_path: Path,
     sheet_id: Union[str, int],
     headers: bool,
-    columns: list[str],
+    columns: List[str],
     skiprows: int,
 ) -> pd.DataFrame:
     doc = backend.get_doc(file_or_path)

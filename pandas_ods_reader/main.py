@@ -1,6 +1,6 @@
 """Imports an ods or fods file into a DataFrame object"""
 from pathlib import Path
-from typing import Optional, Union
+from typing import Optional, List, Union
 
 import pandas as pd
 
@@ -15,7 +15,7 @@ def read_ods(
     file_or_path: Union[str, Path],
     sheet: Union[str, int] = 1,
     headers: bool = True,
-    columns: Optional[list[str]] = None,
+    columns: Optional[List[str]] = None,
     skiprows: int = 0,
 ) -> pd.DataFrame:
     """
