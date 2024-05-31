@@ -29,6 +29,7 @@ flake8 = ">=6.0.0"
 pandas-stubs = ">=1.5.2.221213"
 types-lxml = ">=2022.11.8"
 commitizen = ">=2.38.0"
+pre-commit = ">=3.7.1"
 
 [tool.commitizen]
 name = "cz_conventional_commits"
