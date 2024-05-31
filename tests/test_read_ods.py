@@ -1,4 +1,5 @@
 """Tests for core read_ods function with different files"""
+
 from pathlib import Path
 
 import pandas as pd

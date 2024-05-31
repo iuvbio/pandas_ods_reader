@@ -1,4 +1,5 @@
 """Imports an ods or fods file into a DataFrame object"""
+
 from pathlib import Path
 from typing import Optional, List, Union
 
