@@ -36,3 +36,6 @@ venv/
 
 # pyenv
 .python-version
+
+# mise
+mise.local.toml
