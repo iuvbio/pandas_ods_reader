@@ -16,6 +16,29 @@ files = [
 test = ["coverage", "mypy", "pexpect", "ruff", "wheel"]
 
 [[package]]
+name = "beautifulsoup4"
+version = "4.13.4"
+description = "Screen-scraping library"
+optional = false
+python-versions = ">=3.7.0"
+groups = ["dev"]
+files = [
+    {file = "beautifulsoup4-4.13.4-py3-none-any.whl", hash = "sha256:9bbbb14bfde9d79f38b8cd5f8c7c85f4b8f2523190ebed90e950a8dea4cb1c4b"},
+    {file = "beautifulsoup4-4.13.4.tar.gz", hash = "sha256:dbb3c4e1ceae6aefebdaf2423247260cd062430a410e38c66f2baa50a8437195"},
+]
+
+[package.dependencies]
+soupsieve = ">1.2"
+typing-extensions = ">=4.0.0"
+
+[package.extras]
+cchardet = ["cchardet"]
+chardet = ["chardet"]
+charset-normalizer = ["charset-normalizer"]
+html5lib = ["html5lib"]
+lxml = ["lxml"]
+
+[[package]]
 name = "black"
 version = "24.4.2"
 description = "The uncompromising code formatter."
@@ -1178,6 +1201,18 @@ files = [
 ]
 
 [[package]]
+name = "soupsieve"
+version = "2.7"
+description = "A modern CSS selector implementation for Beautiful Soup."
+optional = false
+python-versions = ">=3.8"
+groups = ["dev"]
+files = [
+    {file = "soupsieve-2.7-py3-none-any.whl", hash = "sha256:6e60cc5c1ffaf1cebcc12e8188320b72071e922c2e897f737cadce79ad5d30c4"},
+    {file = "soupsieve-2.7.tar.gz", hash = "sha256:ad282f9b6926286d2ead4750552c8a6142bc4c783fd66b0293547c8fe6ae126a"},
+]
+
+[[package]]
 name = "termcolor"
 version = "2.4.0"
 description = "ANSI color formatting for output in terminal"
@@ -1218,51 +1253,39 @@ files = [
 ]
 
 [[package]]
-name = "types-beautifulsoup4"
-version = "4.12.0.20240511"
-description = "Typing stubs for beautifulsoup4"
-optional = false
-python-versions = ">=3.8"
-groups = ["dev"]
-files = [
-    {file = "types-beautifulsoup4-4.12.0.20240511.tar.gz", hash = "sha256:004f6096fdd83b19cdbf6cb10e4eae57b10205eccc365d0a69d77da836012e28"},
-    {file = "types_beautifulsoup4-4.12.0.20240511-py3-none-any.whl", hash = "sha256:7ceda66a93ba28d759d5046d7fec9f4cad2f563a77b3a789efc90bcadafeefd1"},
-]
-
-[package.dependencies]
-types-html5lib = "*"
-
-[[package]]
 name = "types-html5lib"
-version = "1.1.11.20240228"
+version = "1.1.11.20241018"
 description = "Typing stubs for html5lib"
 optional = false
 python-versions = ">=3.8"
 groups = ["dev"]
 files = [
-    {file = "types-html5lib-1.1.11.20240228.tar.gz", hash = "sha256:22736b7299e605ec4ba539d48691e905fd0c61c3ea610acc59922232dc84cede"},
-    {file = "types_html5lib-1.1.11.20240228-py3-none-any.whl", hash = "sha256:af5de0125cb0fe5667543b158db83849b22e25c0e36c9149836b095548bf1020"},
+    {file = "types-html5lib-1.1.11.20241018.tar.gz", hash = "sha256:98042555ff78d9e3a51c77c918b1041acbb7eb6c405408d8a9e150ff5beccafa"},
+    {file = "types_html5lib-1.1.11.20241018-py3-none-any.whl", hash = "sha256:3f1e064d9ed2c289001ae6392c84c93833abb0816165c6ff0abfc304a779f403"},
 ]
 
 [[package]]
 name = "types-lxml"
-version = "2024.4.14"
+version = "2025.3.30"
 description = "Complete lxml external type annotation"
 optional = false
 python-versions = ">=3.8"
 groups = ["dev"]
 files = [
-    {file = "types_lxml-2024.4.14-py3-none-any.whl", hash = "sha256:7e5f836067cde4fddce3cdbf2bac7192c764bf5ee6d3eb86c732ad1b84f265c5"},
-    {file = "types_lxml-2024.4.14.tar.gz", hash = "sha256:dd8105b579925af1b6ae77469f4fc835be3872b15e86cb46ad4fcc33b20c781d"},
+    {file = "types_lxml-2025.3.30-py3-none-any.whl", hash = "sha256:310b0ddf9e2104c8684362445808adf8a2cf41cf102d4ea0d16ced413cc46f66"},
+    {file = "types_lxml-2025.3.30.tar.gz", hash = "sha256:ea4da0d2b61a73e114e14e2dcca1f62671182d80016a483369c553a24ba8f163"},
 ]
 
 [package.dependencies]
+beautifulsoup4 = ">=4.13,<5.0"
 cssselect = ">=1.2,<2.0"
-types-beautifulsoup4 = ">=4.12,<5.0"
-typing-extensions = ">=4.5,<5.0"
+types-html5lib = ">=1.1.11.20241018,<1.2.0.0"
+typing_extensions = {version = ">=4.10,<5.0", markers = "python_version < \"3.13\""}
 
 [package.extras]
-test = ["beautifulsoup4 (>=4.8,<5.0)", "html5lib (==1.1)", "lxml (>=4.9)", "mypy (==1.9.*)", "pyright (>=1.1.289)", "pytest (>=7.0,<9)", "pytest-mypy-plugins (==1.11.1)", "tox (>=4.0,<5.0)", "typeguard (>=3.0,<5)"]
+basedpyright = ["basedpyright (>=1.4.0)"]
+mypy = ["mypy (>=1.11,<2.0)"]
+pyright = ["pyright (>=1.1.351)"]
 
 [[package]]
 name = "types-pytz"
