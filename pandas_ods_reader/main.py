@@ -37,11 +37,11 @@ def read_ods(
     """
     path = file_or_path if isinstance(file_or_path, Path) else Path(file_or_path)
     if not path.is_file():
-        raise FileNotFoundError(f"file {file_or_path} does not exist")
-    backend = EXT_MAP.get(Path(file_or_path).suffix, ods)
+        raise FileNotFoundError(f"file {path} does not exist")
+    backend = EXT_MAP.get(path.suffix, ods)
     return algo.read_data(
         backend,
-        Path(file_or_path),
+        path,
         sheet,
         headers=headers,
         columns=columns or [],
