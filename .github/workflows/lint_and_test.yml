@@ -34,6 +34,8 @@ jobs:
         with:
           path: ./.venv
           key: ${{ runner.os }}-python-${{ env.pythonLocation }}-${{ hashFiles('poetry.lock') }}-venv
+      - name: Install build dependencies
+        run: sudo apt install -y libxml2-dev libxslt-dev
       - name: Install Dependencies
         run: poetry install
       - name: Lint with black
