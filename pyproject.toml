@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pandas-ods-reader"
-version = "1.0.1"
+version = "1.0.2"
 description = "Read in .ods and .fods files and return a pandas.DataFrame."
 authors = ["iuvbio <iuvbio@users.noreply.github.com>"]
 license = "MIT"
