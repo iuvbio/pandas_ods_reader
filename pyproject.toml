@@ -15,7 +15,7 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = ">=3.9,<4"
+python = ">=3.10,<4"
 ezodf = ">=0.3.2"
 lxml = ">=4.9.2"
 pandas = ">=2.2.3"
